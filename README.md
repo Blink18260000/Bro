@@ -1,2 +1,0 @@
-# Bro
-Bro app development
