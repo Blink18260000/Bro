@@ -1,20 +1,50 @@
 package com.simpledev.eric.bro;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class MainBro extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.simpledev.eric.bro.MESSAGE";
 
+    Button broButton;
+    Button broDawgButton;
+    EditText broPhoneNumber;
+    String curBroVers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_bro);
+
+        broButton = (Button) findViewById(R.id.broButton);
+        broDawgButton = (Button) findViewById(R.id.broDawgButton);
+        broPhoneNumber = (EditText) findViewById(R.id.edit_message);
+
+        broDawgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNo = broPhoneNumber.getText().toString();
+                if (phoneNo.length() == 10)
+                    sendSMS(phoneNo, 1);
+            }
+        });
+
+        broButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNo = broPhoneNumber.getText().toString();
+                if (phoneNo.length() == 10)
+                    sendSMS(phoneNo, 0);
+            }
+        });
     }
 
     @Override
@@ -39,14 +69,18 @@ public class MainBro extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /** Called when the user clicks the send button */
-    public void sendMessage(View view){
-        //Do something in response to the button
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+    private void sendSMS(String broNumber, int broVers)
+    {
+        PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, MainBro.class), 0);
+        SmsManager sms = SmsManager.getDefault();
+        if (broVers == 0) {
+            curBroVers = "Bro";
+        } else if (broVers == 1) {
+            curBroVers = "Bro Dawg";
+        } else {
+            curBroVers = "Invalid Bro";
+        }
+        sms.sendTextMessage(broNumber, null, curBroVers, pi, null);
     }
 
 }
