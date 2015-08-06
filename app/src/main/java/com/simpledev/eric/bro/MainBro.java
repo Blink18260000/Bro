@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Random;
+
 public class MainBro extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.simpledev.eric.bro.MESSAGE";
 
@@ -18,6 +20,8 @@ public class MainBro extends AppCompatActivity {
     Button broDawgButton;
     EditText broPhoneNumber;
     String curBroVers;
+    int broVers;
+    Random rand = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +29,10 @@ public class MainBro extends AppCompatActivity {
         setContentView(R.layout.activity_main_bro);
 
         broButton = (Button) findViewById(R.id.broButton);
-        broDawgButton = (Button) findViewById(R.id.broDawgButton);
+        //broDawgButton = (Button) findViewById(R.id.broDawgButton);
         broPhoneNumber = (EditText) findViewById(R.id.edit_message);
 
+        /**
         broDawgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,13 +41,19 @@ public class MainBro extends AppCompatActivity {
                     sendSMS(phoneNo, 1);
             }
         });
+        */
 
         broButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String phoneNo = broPhoneNumber.getText().toString();
                 if (phoneNo.length() == 10)
-                    sendSMS(phoneNo, 0);
+                    broVers = rand.nextInt(9);
+                    if (broVers == 9) {
+                        sendSMS(phoneNo, 1);
+                    } else {
+                        sendSMS(phoneNo, 0);
+                    }
             }
         });
     }
