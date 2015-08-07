@@ -8,10 +8,13 @@
     <string name="to_bro">Number to Bro</string>
     <string name="num_to_bro">Enter the number to Bro</string>
     <string name="bd_button_send">Bro Dawg</string>
+    <string name="The_number">The number </string>
+    <string name="being_broed"> is currently being broed.</string>
 
     //Bros
     <string name="bro_plain">Bro</string>
     <string name="bro_dawg">Bro Dawg</string>
+    <string name="forever_bro">Forever Bro</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_send_bro">SendBro</string>

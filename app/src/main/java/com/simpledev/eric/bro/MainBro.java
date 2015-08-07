@@ -16,8 +16,11 @@ import java.util.Random;
 public class MainBro extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.simpledev.eric.bro.MESSAGE";
 
+    //Bro
+
     Button broButton;
     //Button broDawgButton;
+    Button broForeverButton;
     EditText broPhoneNumber;
     String curBroVers;
     int broVers;
@@ -29,6 +32,7 @@ public class MainBro extends AppCompatActivity {
         setContentView(R.layout.activity_main_bro);
 
         broButton = (Button) findViewById(R.id.broButton);
+        broForeverButton = (Button) findViewById(R.id.foreverButton);
         //broDawgButton = (Button) findViewById(R.id.broDawgButton);
         broPhoneNumber = (EditText) findViewById(R.id.edit_message);
 
@@ -92,6 +96,14 @@ public class MainBro extends AppCompatActivity {
             curBroVers = "Invalid Bro";
         }
         sms.sendTextMessage(broNumber, null, curBroVers, pi, null);
+    }
+
+    public void sendSMSForever(View view)
+    {
+        Intent pi = new Intent(this, DisplayMessageActivity.class);
+        String nonBroNumber = broPhoneNumber.getText().toString();
+        pi.putExtra(EXTRA_MESSAGE, nonBroNumber);
+        startActivity(pi);
     }
 
 }
