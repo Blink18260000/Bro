@@ -16,8 +16,6 @@ import java.util.Random;
 public class MainBro extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.simpledev.eric.bro.MESSAGE";
 
-    //Bro
-
     Button broButton;
     //Button broDawgButton;
     Button broForeverButton;
@@ -51,13 +49,16 @@ public class MainBro extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String phoneNo = broPhoneNumber.getText().toString();
-                if (phoneNo.length() == 10)
-                    broVers = rand.nextInt(9);
+                //if (android.telephony.PhoneNumberUtils.isWellFormedSmsAddress(android.telephony.PhoneNumberUtils.normalizeNumber(phoneNo))) {
+                if (android.telephony.PhoneNumberUtils.isWellFormedSmsAddress(phoneNo)) {
+                    if (phoneNo.length() == 10)
+                        broVers = rand.nextInt(9);
                     if (broVers == 9) {
                         sendSMS(phoneNo, 1);
                     } else {
                         sendSMS(phoneNo, 0);
                     }
+                }
             }
         });
     }

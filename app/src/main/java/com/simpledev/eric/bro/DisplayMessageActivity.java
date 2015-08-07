@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class DisplayMessageActivity extends AppCompatActivity {
@@ -14,6 +16,9 @@ public class DisplayMessageActivity extends AppCompatActivity {
     String message;
     SmsManager sms;
     android.os.Handler customHandler;
+    TextView broingText;
+    Button stopButton;
+    //Boolean stop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,11 @@ public class DisplayMessageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         message = intent.getStringExtra(MainBro.EXTRA_MESSAGE);
 
+        setContentView(R.layout.activity_display_message);
+        broingText = (TextView) findViewById(R.id.numberBroed);
+        broingText.setText("The number " + message + " is currently being broed.");
+
+        /**
         // Create the text view
         TextView textView = new TextView(this);
         textView.setTextSize(40);
@@ -30,6 +40,19 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         // Set the text view as the activity layout
         setContentView(textView);
+        */
+
+        //stop = false;
+
+        stopButton = (Button) findViewById(R.id.stop_button);
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customHandler.removeCallbacks(broThem);
+                goHome();
+            }
+        });
 
         customHandler = new android.os.Handler();
         customHandler.postDelayed(broThem, 0);
@@ -63,5 +86,10 @@ public class DisplayMessageActivity extends AppCompatActivity {
     private void sendSMS(String broNumber)
     {
         sms.sendTextMessage(broNumber, null, "Bro...", null, null);
+    }
+
+    private void goHome() {
+        Intent intent = new Intent(this, MainBro.class);
+        startActivity(intent);
     }
 }
