@@ -17,7 +17,7 @@ public class MainBro extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.simpledev.eric.bro.MESSAGE";
 
     Button broButton;
-    Button broDawgButton;
+    //Button broDawgButton;
     EditText broPhoneNumber;
     String curBroVers;
     int broVers;
